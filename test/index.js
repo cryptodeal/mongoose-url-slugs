@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
     expect = require('chai').expect,
     urlSlugs = require('../index');
 
-mongoose.connect('mongodb://localhost/mongoose-url-slugs');
+mongoose.connect('mongodb://localhost/mongoose-url-slugs', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
 
 mongoose.connection.on('error', function(err) {
   console.error('MongoDB error: ' + err.message);
@@ -21,8 +21,8 @@ var TestSparseObj = mongoose.model('test_sparse_obj', TestObjSparseSchema);
 
 describe('mongoose-url-slugs', function() {
   before(function(done) {
-    TestObj.remove(function() {
-      TestSparseObj.remove(done);
+    TestObj.deleteMany(function() {
+      TestSparseObj.deleteMany(done);
     });
   });
 
